@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wizualizator pierwiastków</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div>
+          <h1>Wizualizator pierwiastków</h1>
+          <p>Tablica Mendelejewa, budowa atomu, parametry i podgląd Wikipedii.</p>
+        </div>
+        <div class="top-actions">
+          <label class="search">
+            <span>Szukaj</span>
+            <input id="searchInput" type="search" placeholder="np. tlen, Fe, 79">
+          </label>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Zmień motyw">Jasny motyw</button>
+        </div>
+      </header>
+
+      <section class="periodic-wrap" aria-label="Tablica Mendelejewa">
+        <div id="periodicTable" class="periodic-table"></div>
+        <div class="legend-wrap" aria-label="Legenda typów pierwiastków">
+          <h2>Legenda</h2>
+          <div id="legend" class="legend"></div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="element-list-panel">
+          <div class="panel-title">
+            <h2>Pierwiastki</h2>
+            <span id="countLabel"></span>
+          </div>
+          <div id="elementList" class="element-list"></div>
+        </aside>
+
+        <section class="atom-panel">
+          <div class="selected-heading">
+            <div id="symbolBadge" class="symbol-badge">H</div>
+            <div>
+              <h2 id="elementName">Wodór</h2>
+              <p id="elementSubtitle">Z = 1</p>
+            </div>
+          </div>
+          <div id="atomCanvas" class="atom-canvas" aria-label="Model atomu"></div>
+          <div class="atom-legend" aria-label="Legenda wizualizacji atomu">
+            <div class="atom-legend-item">
+              <span class="atom-legend-dot electron-dot"></span>
+              <span>Elektron</span>
+            </div>
+            <div class="atom-legend-item">
+              <span class="atom-legend-dot proton-dot"></span>
+              <span>Proton</span>
+            </div>
+            <div class="atom-legend-item">
+              <span class="atom-legend-dot neutron-dot"></span>
+              <span>Neutron</span>
+            </div>
+            <div class="atom-legend-item">
+              <span class="atom-legend-ring shell-dot"></span>
+              <span>Powłoka</span>
+            </div>
+            <div class="atom-legend-item">
+              <span class="atom-legend-ring nucleus-dot"></span>
+              <span>Jądro</span>
+            </div>
+          </div>
+          <div id="shellInfo" class="shell-info"></div>
+        </section>
+
+        <aside class="params-panel">
+          <h2>Parametry</h2>
+          <dl id="paramsList" class="params-list"></dl>
+        </aside>
+
+        <aside class="wiki-panel">
+          <div class="wiki-header">
+            <h2>Wikipedia mobile</h2>
+            <a id="wikiLink" target="_blank" rel="noreferrer">Otwórz</a>
+          </div>
+          <iframe id="wikiFrame" title="Podgląd mobilnej Wikipedii"></iframe>
+        </aside>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
