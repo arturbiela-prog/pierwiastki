@@ -350,7 +350,7 @@ body[data-theme="light"] .list-item.active {
 
 .atom-panel {
   display: grid;
-  grid-template-rows: auto 1fr auto auto;
+  grid-template-rows: auto 1fr auto auto auto;
   gap: 14px;
   padding: 16px;
 }
@@ -528,6 +528,49 @@ body[data-theme="light"] .shell-pill {
 .shell-pill span {
   color: var(--muted);
   font-size: 11px;
+}
+
+.subshell-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel-soft) 62%, transparent);
+  padding: 10px;
+}
+
+.subshell-panel h3 {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.subshell-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  max-height: 92px;
+  overflow: auto;
+}
+
+.subshell-pill {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel);
+  padding: 6px 8px;
+  white-space: nowrap;
+}
+
+.subshell-pill strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.subshell-pill span {
+  color: var(--muted);
+  font-size: 10px;
 }
 
 .params-list {

@@ -168,6 +168,24 @@ const tablePositions = new Map();
 ].forEach(([z, col, row]) => tablePositions.set(z, {col, row}));
 
 const shellsNames = ["K", "L", "M", "N", "O", "P", "Q"];
+const subshellOrder = [
+  ["1s", 2], ["2s", 2], ["2p", 6], ["3s", 2], ["3p", 6],
+  ["4s", 2], ["3d", 10], ["4p", 6], ["5s", 2], ["4d", 10],
+  ["5p", 6], ["6s", 2], ["4f", 14], ["5d", 10], ["6p", 6],
+  ["7s", 2], ["5f", 14], ["6d", 10], ["7p", 6]
+];
+const superscripts = {
+  0: "⁰",
+  1: "¹",
+  2: "²",
+  3: "³",
+  4: "⁴",
+  5: "⁵",
+  6: "⁶",
+  7: "⁷",
+  8: "⁸",
+  9: "⁹"
+};
 const byZ = new Map(elements.map((element) => [element.z, element]));
 let selected = byZ.get(1);
 let query = "";
@@ -184,6 +202,7 @@ const elementName = document.querySelector("#elementName");
 const elementSubtitle = document.querySelector("#elementSubtitle");
 const atomCanvas = document.querySelector("#atomCanvas");
 const shellInfo = document.querySelector("#shellInfo");
+const subshellInfo = document.querySelector("#subshellInfo");
 const paramsList = document.querySelector("#paramsList");
 const wikiFrame = document.querySelector("#wikiFrame");
 const wikiLink = document.querySelector("#wikiLink");
@@ -218,6 +237,28 @@ function scaleLabel(element) {
   if (element.r <= 140) return "100 pm";
   if (element.r <= 230) return "200 pm";
   return "300 pm";
+}
+
+function toSuperscript(number) {
+  return String(number).split("").map((digit) => superscripts[digit] || digit).join("");
+}
+
+function electronSubshells(atomicNumber) {
+  let remaining = atomicNumber;
+  const result = [];
+
+  for (const [name, capacity] of subshellOrder) {
+    if (remaining <= 0) break;
+    const count = Math.min(capacity, remaining);
+    result.push({ name, count, label: `${name}${toSuperscript(count)}` });
+    remaining -= count;
+  }
+
+  return result;
+}
+
+function electronConfiguration(atomicNumber) {
+  return electronSubshells(atomicNumber).map((subshell) => subshell.label).join(" ");
 }
 
 function renderTable() {
@@ -337,6 +378,13 @@ function renderAtom(element) {
     </div>
   `).join("");
 
+  subshellInfo.innerHTML = electronSubshells(element.z).map((subshell) => `
+    <div class="subshell-pill">
+      <strong>${subshell.label}</strong>
+      <span>${subshell.count} e⁻</span>
+    </div>
+  `).join("");
+
   startElectronAnimation();
 }
 
@@ -386,6 +434,7 @@ function renderParams(element) {
     ["Neutrony", `około ${neutrons}`],
     ["Masa atomowa", `${element.m} u`],
     ["Powłoki", element.sh.join("-")],
+    ["Podpowłoki", electronConfiguration(element.z)],
     ["Walencyjne", valence],
     ["Typ", element.c],
     ["Stan 25°C", element.st],
